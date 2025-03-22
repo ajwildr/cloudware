@@ -4,7 +4,8 @@ require '../includes/db_connect.php';
 
 // Check if the user is an Admin
 if ($_SESSION['role'] != 'Admin') {
-    header("Location: error.php");
+    // header("Location: error.php");
+    echo "<script>window.location.href = 'error.php';</script>";
     exit;
 }
 

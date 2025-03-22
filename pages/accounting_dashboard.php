@@ -4,7 +4,8 @@ require '../includes/db_connect.php';
 
 // Check if user is logged in and is Accounting
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Accounting') {
-    header("Location: login.php");
+    // header("Location: login.php");
+    echo "<script>window.location.href = 'login.php';</script>";
     exit;
 }
 

@@ -4,13 +4,15 @@ require '../includes/db_connect.php';
 
 // Check if the user is an Admin
 if ($_SESSION['role'] != 'Admin') {
-    header("Location: error.php");
+    // header("Location: error.php");
+    echo "<script>window.location.href = 'error.php';</script>";
     exit;
 }
 
 // Check if supplier ID is provided
 if (!isset($_GET['supplier_id']) || empty($_GET['supplier_id'])) {
-    header("Location: manage_suppliers.php");
+    // header("Location: manage_suppliers.php");
+    echo "<script>window.location.href = 'manage_suppliers.php';</script>";
     exit;
 }
 
@@ -32,6 +34,7 @@ if ($stmt) {
 }
 
 // Redirect back to the suppliers management page
-header("Location: manage_suppliers.php");
+// header("Location: manage_suppliers.php");
+echo "<script>window.location.href = 'manage_suppliers.php';</script>";
 exit;
 ?>

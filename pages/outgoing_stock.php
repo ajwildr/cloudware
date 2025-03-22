@@ -4,7 +4,8 @@ require '../includes/db_connect.php';
 
 // Ensure the user is an Accounting staff
 if ($_SESSION['role'] != 'Accounting') {
-    header("Location: error.php");
+    // header("Location: error.php");
+    echo "<script>window.location.href = 'error.php';</script>";
     exit;
 }
 

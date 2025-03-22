@@ -4,8 +4,9 @@ require '../includes/db_connect.php';
 
 // Check if the user is authorized (Manager only)
 if ($_SESSION['role'] != 'Manager') {
-    header("Location: error.php");
-    exit;
+    // header("Location: error.php");
+    // exit;
+    echo "<script>window.location.href = 'error.php';</script>";
 }
 
 // Check if product_id is provided
@@ -23,5 +24,7 @@ if (isset($_GET['product_id'])) {
 }
 
 // Redirect to the manage products page
-header("Location: manage_products.php");
+// header("Location: manage_products.php");
+// exit;
+echo "<script>window.location.href = 'manage_products.php';</script>";
 exit;

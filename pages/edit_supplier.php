@@ -4,7 +4,8 @@ require '../includes/db_connect.php';
 
 // Check if the user is an Admin
 if ($_SESSION['role'] != 'Admin') {
-    header("Location: error.php");
+    // header("Location: error.php");
+    echo "<script>window.location.href = 'error.php';</script>";
     exit;
 }
 
@@ -14,7 +15,8 @@ $error_message = '';
 
 // Check if supplier_id is provided
 if (!$supplier_id) {
-    header("Location: manage_suppliers.php");
+    // header("Location: manage_suppliers.php");
+    echo "<script>window.location.href = 'manage_suppliers.php';</script>";
     exit;
 }
 
@@ -29,7 +31,8 @@ if ($stmt) {
     $stmt->close();
     
     if (!$supplier) {
-        header("Location: manage_suppliers.php");
+        // header("Location: manage_suppliers.php");
+        echo "<script>window.location.href = 'manage_suppliers.php';</script>";
         exit;
     }
 } else {

@@ -17,7 +17,8 @@ use PHPMailer\PHPMailer\SMTP; // Make sure to install PHPMailer via Composer
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    // header("Location: login.php");
+    echo "<script>window.location.href = 'error.php';</script>";
     exit;
 }
 

@@ -4,7 +4,8 @@ require '../includes/db_connect.php';
 
 // Check if the user is a Manager
 if ($_SESSION['role'] != 'Manager') {
-    header("Location: error.php");
+    // header("Location: error.php");
+    echo "<script>window.location.href = 'error.php';</script>";
     exit;
 }
 
@@ -19,7 +20,8 @@ if ($stmt) {
     $user = $result->fetch_assoc();
 
     if (!$user) {
-        header("Location: error.php");
+        // header("Location: error.php");
+        echo "<script>window.location.href = 'error.php';</script>";
         exit;
     }
     $manager_category = $user['assigned_category'];

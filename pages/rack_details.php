@@ -4,7 +4,8 @@ require '../includes/db_connect.php';
 
 // Ensure the user is logged in and has the Worker role
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'Worker') {
-    header("Location: error.php");
+    // header("Location: error.php");
+    echo "<script>window.location.href = 'error.php';</script>";
     exit;
 }
 

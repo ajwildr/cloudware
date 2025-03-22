@@ -4,7 +4,8 @@ require '../includes/db_connect.php';
 
 // Check if the user is an Admin
 if ($_SESSION['role'] != 'Admin') {
-    header("Location: error.php");
+    // header("Location: error.php");
+    echo "<script>window.location.href = 'error.php';</script>";
     exit;
 }
 
@@ -20,7 +21,7 @@ if (isset($_GET['user_id'])) {
     if ($delete_stmt) {
         $delete_stmt->bind_param("i", $user_id);
         if ($delete_stmt->execute()) {
-            header("Location: manage_users.php?success=User deleted successfully.");
+            echo "<script>window.location.href = 'manage_users.php?success=User deleted successfully.';</script>";
             exit;
         } else {
             $error_message = "Failed to delete user: " . $delete_stmt->error;

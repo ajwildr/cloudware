@@ -4,7 +4,8 @@ require '../includes/db_connect.php';
 
 // Check if user is logged in and is Worker
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Worker') {
-    header("Location: login.php");
+    // header("Location: login.php");
+    echo "<script>window.location.href = 'error.php';</script>";
     exit;
 }
 

@@ -5,7 +5,8 @@ require '../includes/db_connect.php';
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    // header("Location: login.php");
+    echo "<script>window.location.href = 'error.php';</script>";
     exit;
 }
 

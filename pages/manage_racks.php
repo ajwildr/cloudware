@@ -4,7 +4,8 @@ require '../includes/db_connect.php';
 
 // Check if the user is authorized (Manager only)
 if ($_SESSION['role'] != 'Manager') {
-    header("Location: error.php");
+    // header("Location: error.php");
+    echo "<script>window.location.href = 'error.php';</script>";
     exit;
 }
 

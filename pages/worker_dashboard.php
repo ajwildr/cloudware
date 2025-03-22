@@ -200,7 +200,8 @@ $notifications = $notif_stmt->get_result();
             border-radius: 1rem;
             padding: 1.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-top: 2rem;
+            transition: transform 0.3s ease;
+            height: 100%;
         }
 
         /* Mobile Responsive */

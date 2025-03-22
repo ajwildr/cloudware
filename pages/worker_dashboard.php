@@ -154,6 +154,9 @@ $notifications = $notif_stmt->get_result();
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
             height: 100%;
+            display: block; /* Ensures it wraps content */
+            width: fit-content; /* Wrap width based on content */
+            max-width: 100%; /* Prevents overflow */
             margin-bottom: 1rem;
         }
 
@@ -205,6 +208,7 @@ $notifications = $notif_stmt->get_result();
             display: block; /* Ensures it wraps content */
             width: fit-content; /* Wrap width based on content */
             max-width: 100%; /* Prevents overflow */
+            margin-bottom: 1rem;
         }
         
         /* Badge Styling */

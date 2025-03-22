@@ -179,18 +179,15 @@ $recent_result = $conn->query($recent_query);
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .sidebar {
-                position: absolute; /* Prevents fixed positioning */
-                height: auto; /* Allows it to expand with content */
-                min-height: 100vh; /* Ensures it takes full screen height at minimum */
+                margin-left: -250px;
             }
             
-            .wrapper {
-                display: block; /* Prevents content from staying in flex mode */
+            .sidebar.active {
+                margin-left: 0;
             }
             
             .main-content {
-                margin-left: 0; /* Ensures full width on mobile */
-                width: 100%;
+                margin-left: 0;
             }
 
             .main-content.active {

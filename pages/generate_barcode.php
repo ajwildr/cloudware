@@ -9,8 +9,9 @@ require_once __DIR__ . '/../vendor/setasign/fpdf/fpdf.php';
 require '../includes/db_connect.php';
 
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Worker') {
-    header("Location: login.php");
-    exit;
+    // header("Location: login.php");
+    // exit;
+    echo("hai");
 }
 
 $worker_id = $_SESSION['user_id'];

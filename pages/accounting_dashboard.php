@@ -65,14 +65,14 @@ $recent_result = $conn->query($recent_query);
             display: flex;
         }
 
-        /* Wrapper to contain sidebar and content */
+        /* //Wrapper to contain sidebar and content
         .wrapper {
             display: flex;
-            height: 100vh; /* Full viewport height */
+            height: 100vh;
             width: 100%;
         }
 
-        /* Sidebar */
+        //Sidebar 
         .sidebar {
             background-color: var(--primary-color);
             color: var(--light-text);
@@ -111,12 +111,69 @@ $recent_result = $conn->query($recent_query);
             background-color: var(--accent-color);
         }
 
-        /* Main Content */
+        // Main Content 
         .main-content {
             margin-left: 250px;
             width: 100%;
             padding: 2rem;
             transition: all 0.3s ease;
+        }
+         */
+
+        /* Wrapper to contain sidebar and content */
+        .wrapper {
+            display: flex;
+            height: 100vh; /* Full viewport height */
+            width: 100%;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            width: 250px;
+            position: fixed;
+            height: 100vh; /* Ensures full height */
+            overflow-y: auto; /* Enables scrolling if needed */
+            flex-shrink: 0; /* Prevents sidebar from shrinking */
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 1rem 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar .nav-link {
+            color: var(--light-text);
+            padding: 0.8rem 1rem;
+            margin: 0.2rem 0;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: var(--secondary-color);
+            padding-left: 1.5rem;
+        }
+
+        .sidebar .nav-link.active {
+            background-color: var(--accent-color);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            flex-grow: 1; /* Takes remaining space */
+            overflow-y: auto;
+            min-height: 100vh;
         }
 
         /* Cards */

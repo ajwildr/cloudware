@@ -81,8 +81,7 @@ $recent_result = $conn->query($recent_query);
             top: 0;
             left: 0;
             bottom: 0;
-            height: 100vh; /* Ensures full height */
-            overflow-y: auto; /* Allows scrolling if needed */
+            overflow-y: auto;
             padding: 1rem;
             transition: all 0.3s ease;
         }
@@ -180,15 +179,17 @@ $recent_result = $conn->query($recent_query);
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .sidebar {
-                margin-left: -250px;
+                position: absolute; /* Prevents fixed positioning */
+                height: auto; /* Allows it to expand with content */
+                min-height: 100vh; /* Ensures it takes full screen height at minimum */
             }
-
-            .sidebar.active {
-                margin-left: 0;
+            
+            .wrapper {
+                display: block; /* Prevents content from staying in flex mode */
             }
-
+            
             .main-content {
-                margin-left: 0;
+                margin-left: 0; /* Ensures full width on mobile */
                 width: 100%;
             }
 

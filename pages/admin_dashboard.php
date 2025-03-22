@@ -267,8 +267,8 @@ $recent_activities = $conn->query($query);
                 <div class="col-sm-6 col-md-4">
                     <a href="admin_manage_products.php" class="quick-action shadow">
                         <i class="bi bi-box-seam text-primary"></i>
-                        <h5>Manage Products</h5>
-                        <p class="mb-0">Add, edit or remove products</p>
+                        <h5>View Products</h5>
+                        <p class="mb-0">View all the products in warehouse</p>
                     </a>
                 </div>
                 <div class="col-sm-6 col-md-4">

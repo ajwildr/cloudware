@@ -1,4 +1,7 @@
 <?php 
+// Start output buffering at the very beginning of the script
+ob_start();
+
 session_start(); 
 require '../vendor/autoload.php';
 use Endroid\QrCode\QrCode;
@@ -16,6 +19,10 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Worker') {
 
 $worker_id = $_SESSION['user_id'];
 
+// Initialize $products array and error messages
+$products = [];
+$error_display = "";
+
 // Fetch the worker's assigned category from the users table
 $query = "SELECT assigned_category FROM users WHERE user_id = ?";
 $stmt = $conn->prepare($query);
@@ -26,7 +33,7 @@ $row = $result->fetch_assoc();
 $worker_category = $row['assigned_category'] ?? null;
 
 if (!$worker_category) {
-    echo "<div class='alert alert-danger'>Error: No category assigned to this worker.</div>";
+    $error_display = "<div class='alert alert-danger'>Error: No category assigned to this worker.</div>";
 } else {
     // Fetch products under the worker's assigned category
     $product_query = "SELECT product_id, name FROM products WHERE category = ?";
@@ -34,7 +41,6 @@ if (!$worker_category) {
     $stmt->bind_param("s", $worker_category);
     $stmt->execute();
     $products_result = $stmt->get_result();
-    $products = []; // Initialize array to store products
     while ($product = $products_result->fetch_assoc()) {
         $products[] = $product;
     }
@@ -43,6 +49,9 @@ if (!$worker_category) {
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
+        // Clean output buffer before PDF generation
+        ob_clean();
+        
         // Retrieve product_id from form submission
         $product_id = $_POST['product_id'] ?? null;
         if (!$product_id) {
@@ -127,8 +136,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 unlink($file);
             }
         }
+        
+        // End the script to prevent further output
         exit;
     } catch (Exception $e) {
+        // Clear the output buffer
+        ob_clean();
         $error_message = $e->getMessage();
     }
 }
@@ -211,6 +224,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 <?php endif; ?>
                 
+                <?php if (!empty($error_display)): ?>
+                    <?= $error_display ?>
+                <?php endif; ?>
+                
                 <div class="card">
                     <div class="card-body p-4">
                         <h2 class="card-title text-center mb-4">Generate QR Codes</h2>
@@ -280,3 +297,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </script>
 </body>
 </html>
+<?php
+// End output buffering and flush content
+ob_end_flush();
+?>

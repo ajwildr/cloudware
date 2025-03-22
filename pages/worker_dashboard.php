@@ -153,7 +153,7 @@ $notifications = $notif_stmt->get_result();
             padding: 1.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
-            height: 100%;
+            height: 80%;
         }
 
         .stat-card:hover {
@@ -203,7 +203,7 @@ $notifications = $notif_stmt->get_result();
             transition: transform 0.3s ease;
             display: flex;
             flex-direction: column;
-            height: 100%; /* Ensures the card takes full height */
+            height: 80%; /* Ensures the card takes full height */
         }
         
         /* Table Wrapper to Allow Scrolling */

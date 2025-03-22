@@ -84,6 +84,8 @@ $notifications = $notif_stmt->get_result();
             background-color: var(--light-bg);
             min-height: 100vh;
             display: flex;
+            height: 100%;
+            overflow-x: hidden;
         }
 
         /* Sidebar */

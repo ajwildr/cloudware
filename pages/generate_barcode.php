@@ -89,7 +89,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $y = 20 + $row * 40;
         
         // Create QR code
-        $qrCode = new QrCode("Product ID: $product_id, Rack ID: $rack_id");
+
+        // $qrCode = new QrCode("Product ID: $product_id, Rack ID: $rack_id");
+        $qrCode = new QrCode("$rack_id");
         $writer = new PngWriter();
         $qrCodeImageData = $writer->write($qrCode);
         

@@ -2,6 +2,7 @@
 session_start();
 require '../includes/db_connect.php';
 
+
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -11,6 +12,7 @@ if (!isset($_SESSION['user_id'])) {
 // Fetch user details from session
 $role = $_SESSION['role'];
 $products = [];
+$dashboard_url = ($role === 'Admin') ? 'admin_dashboard.php' : 'manager_dashboard.php';
 
 // Modified query to include supplier information
 if ($role === 'Admin') {
@@ -93,10 +95,19 @@ if (isset($_POST['send_email'])) {
             border-radius: 6px;
             text-decoration: none;
             transition: background-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .back-button:hover {
             background-color: #1d4ed8;
+        }
+        
+        .page-title {
+            font-size: 1.8rem;
+            margin: 0;
+            color: #1f2937;
         }
 
         .cards-grid {
@@ -214,40 +225,92 @@ if (isset($_POST['send_email'])) {
             margin-top: 10px;
             display: none;
         }
+        
+        .no-data-message {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        
+        .no-data-message i {
+            font-size: 3rem;
+            color: #6b7280;
+            margin-bottom: 15px;
+        }
+        
+        .no-data-message h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+        
+        .no-data-message p {
+            color: #6b7280;
+            margin-bottom: 0;
+        }
+        
+        /* Responsive styles */
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        
-
-        <div class="cards-grid">
-            <?php foreach ($products as $product): ?>
-                <?php
-                $stockPercentage = ($product['current'] / $product['min_limit']) * 100;
-                $progressColor = $stockPercentage <= 50 ? '#dc2626' : '#f59e0b';
-                ?>
-                <div class="card">
-                    <h3><?= htmlspecialchars($product['product_name']) ?></h3>
-                    <p>Category: <?= htmlspecialchars($product['category']) ?></p>
-                    
-                    <div class="stock-indicator">
-                        <span>Stock:</span>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: <?= $stockPercentage ?>%; background-color: <?= $progressColor ?>"></div>
-                        </div>
-                        <span><?= $product['current'] ?>/<?= $product['min_limit'] ?></span>
-                    </div>
-
-                    <p>Supplier: <?= htmlspecialchars($product['supplier_name']) ?></p>
-                    
-                    <?php if ($product['supplier_email']): ?>
-                        <button class="email-button" onclick="openEmailModal('<?= htmlspecialchars($product['product_name']) ?>', '<?= htmlspecialchars($product['supplier_email']) ?>' , <?= $product['current'] ?>, <?= $product['min_limit'] ?>)">
-                            <i class="fas fa-envelope"></i> Contact Supplier
-                        </button> 
-                    <?php endif;  ?>
-                </div>
-            <?php endforeach; ?>
+        <div class="header">
+            <h1 class="page-title">Low Stock Notifications</h1>
+            <a href="<?= $dashboard_url ?>" class="back-button">
+    <i class="fas fa-arrow-left"></i> Back to Dashboard
+</a>
         </div>
+
+        <?php if (empty($products)): ?>
+            <div class="no-data-message">
+                <i class="fas fa-box-open"></i>
+                <h3>No Low Stock Items</h3>
+                <p>All products are currently above their minimum stock levels.</p>
+            </div>
+        <?php else: ?>
+            <div class="cards-grid">
+                <?php foreach ($products as $product): ?>
+                    <?php
+                    $stockPercentage = ($product['current'] / $product['min_limit']) * 100;
+                    $progressColor = $stockPercentage <= 50 ? '#dc2626' : '#f59e0b';
+                    ?>
+                    <div class="card">
+                        <h3><?= htmlspecialchars($product['product_name']) ?></h3>
+                        <p>Category: <?= htmlspecialchars($product['category']) ?></p>
+                        
+                        <div class="stock-indicator">
+                            <span>Stock:</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: <?= $stockPercentage ?>%; background-color: <?= $progressColor ?>"></div>
+                            </div>
+                            <span><?= $product['current'] ?>/<?= $product['min_limit'] ?></span>
+                        </div>
+
+                        <p>Supplier: <?= htmlspecialchars($product['supplier_name']) ?></p>
+                        
+                        <?php if ($product['supplier_email']): ?>
+                            <button class="email-button" onclick="openEmailModal('<?= htmlspecialchars($product['product_name']) ?>', '<?= htmlspecialchars($product['supplier_email']) ?>' , <?= $product['current'] ?>, <?= $product['min_limit'] ?>)">
+                                <i class="fas fa-envelope"></i> Contact Supplier
+                            </button> 
+                        <?php endif;  ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
     </div>
 
     <div id="emailModal" class="modal">

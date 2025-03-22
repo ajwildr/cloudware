@@ -77,11 +77,9 @@ $recent_activities = $conn->query($query);
             color: var(--light-text);
             width: 250px;
             position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
             height: 100vh; /* Ensures full height */
-            overflow-y: auto; /* Allows scrolling if needed */
+            overflow-y: auto; /* Enables scrolling if needed */
+            flex-shrink: 0; /* Prevents sidebar from shrinking */
             padding: 1rem;
             transition: all 0.3s ease;
         }
@@ -117,6 +115,9 @@ $recent_activities = $conn->query($query);
             width: calc(100% - 250px);
             padding: 2rem;
             transition: all 0.3s ease;
+            flex-grow: 1; /* Takes remaining space */
+            overflow-y: auto;
+            min-height: 100vh;
         }
 
         /* Cards */

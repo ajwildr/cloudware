@@ -114,7 +114,7 @@ $recent_result = $conn->query($recent_query);
         /* Main Content */
         .main-content {
             margin-left: 250px;
-            width: calc(100% - 250px);
+            width: 100%;
             padding: 2rem;
             transition: all 0.3s ease;
         }

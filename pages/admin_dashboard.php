@@ -64,6 +64,13 @@ $recent_activities = $conn->query($query);
             display: flex;
         }
 
+        /* Wrapper to contain sidebar and content */
+        .wrapper {
+            display: flex;
+            height: 100vh; /* Full viewport height */
+            width: 100%;
+        }
+
         /* Sidebar */
         .sidebar {
             background-color: var(--primary-color);
@@ -191,6 +198,7 @@ $recent_activities = $conn->query($query);
     </style>
 </head>
 <body>
+<div class="wrapper">
     <!-- Sidebar -->
     <nav class="sidebar">
         <div class="sidebar-brand">
@@ -389,7 +397,7 @@ $recent_activities = $conn->query($query);
                 </table>
             </div>
         </div>
-
+    </div>
         
 
     </div>

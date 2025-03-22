@@ -65,6 +65,13 @@ $recent_result = $conn->query($recent_query);
             display: flex;
         }
 
+        /* Wrapper to contain sidebar and content */
+        .wrapper {
+            display: flex;
+            height: 100vh; /* Full viewport height */
+            width: 100%;
+        }
+
         /* Sidebar */
         .sidebar {
             background-color: var(--primary-color);
@@ -192,6 +199,7 @@ $recent_result = $conn->query($recent_query);
     </style>
 </head>
 <body>
+<div class="wrapper">
     <!-- Sidebar -->
     <nav class="sidebar">
         <div class="sidebar-brand">
@@ -337,7 +345,7 @@ $recent_result = $conn->query($recent_query);
             </div>
         </div>
 
-        
+    </div>  
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -100,6 +100,13 @@ $tasks = $stmt->get_result();
             display: flex;
         }
 
+        /* Wrapper to contain sidebar and content */
+        .wrapper {
+            display: flex;
+            height: 100vh; /* Full viewport height */
+            width: 100%;
+        }
+
         /* Sidebar */
         .sidebar {
             background-color: var(--primary-color);
@@ -212,6 +219,7 @@ $tasks = $stmt->get_result();
     </style>
 </head>
 <body>
+<div class="wrapper">
     <!-- Sidebar -->
     <nav class="sidebar">
         <div class="sidebar-brand">
@@ -385,7 +393,7 @@ $tasks = $stmt->get_result();
 
     </div>
 
-  
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>

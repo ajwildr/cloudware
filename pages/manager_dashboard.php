@@ -106,7 +106,11 @@ $tasks = $stmt->get_result();
             color: var(--light-text);
             width: 250px;
             position: fixed;
-            height: 100vh;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            height: 100vh; /* Ensures full height */
+            overflow-y: auto; /* Allows scrolling if needed */
             padding: 1rem;
             transition: all 0.3s ease;
         }

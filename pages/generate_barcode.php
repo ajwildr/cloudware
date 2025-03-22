@@ -10,8 +10,8 @@ require '../includes/db_connect.php';
 // Check if user is logged in and has Worker role
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Worker') {
     // Use JavaScript redirection instead of PHP header
-    echo "<script>window.location.href = 'login.php';</script>";
-    exit;
+    // echo "<script>window.location.href = 'login.php';</script>";
+    // exit;
 }
 
 $worker_id = $_SESSION['user_id'];

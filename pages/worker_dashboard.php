@@ -86,6 +86,15 @@ $notifications = $notif_stmt->get_result();
             display: flex;
             height: 100%;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Wrapper to contain sidebar and content */
+        .wrapper {
+            display: flex;
+            height: 100vh; /* Full viewport height */
+            width: 100%;
         }
 
         /* Sidebar */
@@ -94,11 +103,9 @@ $notifications = $notif_stmt->get_result();
             color: var(--light-text);
             width: 250px;
             position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
             height: 100vh; /* Ensures full height */
-            overflow-y: auto; /* Allows scrolling if needed */
+            overflow-y: auto; /* Enables scrolling if needed */
+            flex-shrink: 0; /* Prevents sidebar from shrinking */
             padding: 1rem;
             transition: all 0.3s ease;
         }
@@ -134,6 +141,9 @@ $notifications = $notif_stmt->get_result();
             width: calc(100% - 250px);
             padding: 2rem;
             transition: all 0.3s ease;
+            flex-grow: 1; /* Takes remaining space */
+            overflow-y: auto;
+            min-height: 100vh;
         }
 
         /* Cards */
@@ -215,217 +225,219 @@ $notifications = $notif_stmt->get_result();
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
-    <nav class="sidebar">
-        <div class="sidebar-brand">
-            CloudWare
-        </div>
-        <div class="mt-4">
-            <div class="text-center mb-4">
-                <i class="bi bi-person-circle" style="font-size: 3rem;"></i>
-                <h6 class="mt-2 mb-0"><?= htmlspecialchars($_SESSION['username']) ?></h6>
-                <small>Worker - <?= htmlspecialchars($assigned_category) ?></small>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-brand">
+                CloudWare
             </div>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" href="worker_dashboard.php">
-                        <i class="bi bi-speedometer2 me-2"></i> Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="generate_barcode.php">
-                        <i class="bi bi-qr-code"></i> Generate QR code
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="scan_barcode.php">
-                        <i class="bi bi-qr-code-scan me-2"></i> Scan QR code
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="worker_list_product.php">
-                        <i class="bi bi-box-seam me-2"></i> List Products
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="view_rack.php">
-                        <i class="bi bi-grid-3x3-gap"></i> View Rack
-                    </a>
-                </li>
-                <li class="nav-item mt-auto">
-                    <a class="nav-link text-danger" href="../logout.php">
-                        <i class="bi bi-box-arrow-right me-2"></i> Logout
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Top Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white rounded mb-4 shadow-sm">
-            <div class="container-fluid">
-                <button class="btn d-md-none" id="sidebar-toggle">
-                    <i class="bi bi-list"></i>
-                </button>
-                <div class="ms-auto d-flex align-items-center">
-                    <!-- Task Notifications -->
-                    <a href="task_notifications.php" class="btn btn-outline-primary position-relative">
-                        <i class="bi bi-bell-fill"></i>
-                        <?php
-                        // Fetch unread task notifications
-                        $user_id = $_SESSION['user_id'];
-                        $query = "SELECT COUNT(*) AS unread_tasks FROM notifications WHERE user_id = ? AND status = 'Unread'";
-                        $stmt = $conn->prepare($query);
-                        $stmt->bind_param("i", $user_id);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                        $task_notifications = $result->fetch_assoc();
-
-                        if ($task_notifications['unread_tasks'] > 0): ?>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                <?= $task_notifications['unread_tasks'] ?>
-                            </span>
-                        <?php endif; ?>
-                    </a>
+            <div class="mt-4">
+                <div class="text-center mb-4">
+                    <i class="bi bi-person-circle" style="font-size: 3rem;"></i>
+                    <h6 class="mt-2 mb-0"><?= htmlspecialchars($_SESSION['username']) ?></h6>
+                    <small>Worker - <?= htmlspecialchars($assigned_category) ?></small>
                 </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="worker_dashboard.php">
+                            <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="generate_barcode.php">
+                            <i class="bi bi-qr-code"></i> Generate QR code
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="scan_barcode.php">
+                            <i class="bi bi-qr-code-scan me-2"></i> Scan QR code
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="worker_list_product.php">
+                            <i class="bi bi-box-seam me-2"></i> List Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="view_rack.php">
+                            <i class="bi bi-grid-3x3-gap"></i> View Rack
+                        </a>
+                    </li>
+                    <li class="nav-item mt-auto">
+                        <a class="nav-link text-danger" href="../logout.php">
+                            <i class="bi bi-box-arrow-right me-2"></i> Logout
+                        </a>
+                    </li>
+                </ul>
             </div>
         </nav>
-
-
-        <!-- Quick Actions Grid -->
-        <div class="row g-4 mb-4">
-            <div class="col-md-6">
-                <a href="scan_barcode.php" class="quick-action shadow">
-                    <i class="bi bi-qr-code-scan me-2 text-primary"></i>
-                    <h4>Scan Qr code</h4>
-                    <p class="mb-0">Scan products for inventory management</p>
-                </a>
-            </div>
-            <div class="col-md-6">
-                <a href="generate_barcode.php" class="quick-action shadow">
-                    <i class="bi bi-qr-code text-success"></i>
-                    <h4>Generate QR Code</h4>
-                    <p class="mb-0">Generate and print QR codes for inventory tracking</p>
-                </a>
-            </div>
-        </div>
-
-        <!-- Statistics -->
-        <div class="row g-4 mb-4">
-            <div class="col-md-6">
-                <div class="stat-card">
-                    <div class="stat-icon text-primary">
-                        <i class="bi bi-qr-code-scan me-2"></i>
+    
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Navigation -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-white rounded mb-4 shadow-sm">
+                <div class="container-fluid">
+                    <button class="btn d-md-none" id="sidebar-toggle">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <div class="ms-auto d-flex align-items-center">
+                        <!-- Task Notifications -->
+                        <a href="task_notifications.php" class="btn btn-outline-primary position-relative">
+                            <i class="bi bi-bell-fill"></i>
+                            <?php
+                            // Fetch unread task notifications
+                            $user_id = $_SESSION['user_id'];
+                            $query = "SELECT COUNT(*) AS unread_tasks FROM notifications WHERE user_id = ? AND status = 'Unread'";
+                            $stmt = $conn->prepare($query);
+                            $stmt->bind_param("i", $user_id);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            $task_notifications = $result->fetch_assoc();
+    
+                            if ($task_notifications['unread_tasks'] > 0): ?>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    <?= $task_notifications['unread_tasks'] ?>
+                                </span>
+                            <?php endif; ?>
+                        </a>
                     </div>
-                    <h3 class="mb-2"><?= $stats['scans_today'] ?></h3>
-                    <p class="text-muted mb-0">Products Scanned Today</p>
+                </div>
+            </nav>
+    
+    
+            <!-- Quick Actions Grid -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <a href="scan_barcode.php" class="quick-action shadow">
+                        <i class="bi bi-qr-code-scan me-2 text-primary"></i>
+                        <h4>Scan Qr code</h4>
+                        <p class="mb-0">Scan products for inventory management</p>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="generate_barcode.php" class="quick-action shadow">
+                        <i class="bi bi-qr-code text-success"></i>
+                        <h4>Generate QR Code</h4>
+                        <p class="mb-0">Generate and print QR codes for inventory tracking</p>
+                    </a>
                 </div>
             </div>
-
-            <div class="col-md-6">
-                <div class="stat-card">
-                    <div class="stat-icon text-success">
-                        <i class="bi bi-box-seam"></i>
+    
+            <!-- Statistics -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <div class="stat-card">
+                        <div class="stat-icon text-primary">
+                            <i class="bi bi-qr-code-scan me-2"></i>
+                        </div>
+                        <h3 class="mb-2"><?= $stats['scans_today'] ?></h3>
+                        <p class="text-muted mb-0">Products Scanned Today</p>
                     </div>
-                    <h3 class="mb-2"><?= $stats['total_products'] ?></h3>
-                    <p class="text-muted mb-0">Total Products in Inventory</p>
+                </div>
+    
+                <div class="col-md-6">
+                    <div class="stat-card">
+                        <div class="stat-icon text-success">
+                            <i class="bi bi-box-seam"></i>
+                        </div>
+                        <h3 class="mb-2"><?= $stats['total_products'] ?></h3>
+                        <p class="text-muted mb-0">Total Products in Inventory</p>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Recent Activity -->
-        <div class="activity-card">
-            <h5 class="card-title mb-4">Recent Activities</h5>
-            <div class="table-responsive">
+    
+            <!-- Recent Activity -->
+            <div class="activity-card">
+                <h5 class="card-title mb-4">Recent Activities</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Type</th>
+                                <th>Quantity</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($activity = $recent_activities->fetch_assoc()): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($activity['product_name']) ?></td>
+                                    <td>
+                                        <span class="badge bg-<?= $activity['transaction_type'] === 'Incoming' ? 'success' : 'warning' ?>">
+                                            <?= $activity['transaction_type'] ?>
+                                        </span>
+                                    </td>
+                                    <td><?= $activity['quantity'] ?></td>
+                                    <td><?= date('M d, Y H:i', strtotime($activity['created_at'])) ?></td>
+                                </tr>
+                            <?php endwhile; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    
+            <div class="activity-card">
+                <h5 class="card-title mb-4">Assigned Tasks</h5>
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Product</th>
-                            <th>Type</th>
-                            <th>Quantity</th>
-                            <th>Date</th>
+                            <th>Task</th>
+                            <th>Assigned By</th>
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php while ($activity = $recent_activities->fetch_assoc()): ?>
+                        <?php while ($task = $tasks->fetch_assoc()): ?>
                             <tr>
-                                <td><?= htmlspecialchars($activity['product_name']) ?></td>
+                                <td><?= htmlspecialchars($task['description']) ?></td>
+                                <td><?= htmlspecialchars($task['manager']) ?></td>
                                 <td>
-                                    <span class="badge bg-<?= $activity['transaction_type'] === 'Incoming' ? 'success' : 'warning' ?>">
-                                        <?= $activity['transaction_type'] ?>
+                                    <span class="badge bg-<?= $task['status'] === 'Pending' ? 'warning' : 'success' ?>">
+                                        <?= $task['status'] ?>
                                     </span>
                                 </td>
-                                <td><?= $activity['quantity'] ?></td>
-                                <td><?= date('M d, Y H:i', strtotime($activity['created_at'])) ?></td>
+                                <td>
+                                    <?php if ($task['status'] === 'Pending'): ?>
+                                        <form method="post" action="update_task_status.php">
+                                            <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
+                                            <button type="submit" name="complete_task" class="btn btn-success btn-sm">Mark Completed</button>
+                                        </form>
+                                    <?php else: ?>
+                                        <span class="text-success">Completed</span>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                         <?php endwhile; ?>
                     </tbody>
                 </table>
             </div>
-        </div>
-
-        <div class="activity-card">
-            <h5 class="card-title mb-4">Assigned Tasks</h5>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Task</th>
-                        <th>Assigned By</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while ($task = $tasks->fetch_assoc()): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($task['description']) ?></td>
-                            <td><?= htmlspecialchars($task['manager']) ?></td>
-                            <td>
-                                <span class="badge bg-<?= $task['status'] === 'Pending' ? 'warning' : 'success' ?>">
-                                    <?= $task['status'] ?>
-                                </span>
-                            </td>
-                            <td>
-                                <?php if ($task['status'] === 'Pending'): ?>
-                                    <form method="post" action="update_task_status.php">
-                                        <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
-                                        <button type="submit" name="complete_task" class="btn btn-success btn-sm">Mark Completed</button>
-                                    </form>
-                                <?php else: ?>
-                                    <span class="text-success">Completed</span>
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-                    <?php endwhile; ?>
-                </tbody>
-            </table>
-        </div>
-
-    </div>
-
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Mobile sidebar toggle
-        document.getElementById('sidebar-toggle').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('active');
-            document.querySelector('.main-content').classList.toggle('active');
-        });
-
-        // Close sidebar on mobile when clicking outside
-        document.addEventListener('click', function(e) {
-            const sidebar = document.querySelector('.sidebar');
-            const sidebarToggle = document.getElementById('sidebar-toggle');
-            
-            if (window.innerWidth <= 768 && 
-                !sidebar.contains(e.target) && 
-                !sidebarToggle.contains(e.target)) {
-                sidebar.classList.remove('active');
-                document.querySelector('.main-content').classList.remove('active');
-            }
-        });
-    </script>
+        </div>
+    </div>
+    
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            // Mobile sidebar toggle
+            document.getElementById('sidebar-toggle').addEventListener('click', function() {
+                document.querySelector('.sidebar').classList.toggle('active');
+                document.querySelector('.main-content').classList.toggle('active');
+            });
+    
+            // Close sidebar on mobile when clicking outside
+            document.addEventListener('click', function(e) {
+                const sidebar = document.querySelector('.sidebar');
+                const sidebarToggle = document.getElementById('sidebar-toggle');
+                
+                if (window.innerWidth <= 768 && 
+                    !sidebar.contains(e.target) && 
+                    !sidebarToggle.contains(e.target)) {
+                    sidebar.classList.remove('active');
+                    document.querySelector('.main-content').classList.remove('active');
+                }
+            });
+        </script>
 </body>
 </html>

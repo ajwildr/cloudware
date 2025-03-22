@@ -201,8 +201,29 @@ $notifications = $notif_stmt->get_result();
             padding: 1.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
-            height: 100%;
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* Ensures the card takes full height */
         }
+        
+        /* Table Wrapper to Allow Scrolling */
+        .table-responsive {
+            flex-grow: 1;
+            overflow-y: auto;
+            max-height: 60vh; /* Limits height and enables scrolling */
+        }
+        
+        /* Badge Styling */
+        .badge {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+        }
+        
+        /* Button Styling */
+        .btn-sm {
+            padding: 0.3rem 0.6rem;
+        }
+
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
@@ -380,40 +401,45 @@ $notifications = $notif_stmt->get_result();
     
             <div class="activity-card">
                 <h5 class="card-title mb-4">Assigned Tasks</h5>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Task</th>
-                            <th>Assigned By</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($task = $tasks->fetch_assoc()): ?>
+                
+                <!-- Table wrapper for scrolling -->
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
                             <tr>
-                                <td><?= htmlspecialchars($task['description']) ?></td>
-                                <td><?= htmlspecialchars($task['manager']) ?></td>
-                                <td>
-                                    <span class="badge bg-<?= $task['status'] === 'Pending' ? 'warning' : 'success' ?>">
-                                        <?= $task['status'] ?>
-                                    </span>
-                                </td>
-                                <td>
-                                    <?php if ($task['status'] === 'Pending'): ?>
-                                        <form method="post" action="update_task_status.php">
-                                            <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
-                                            <button type="submit" name="complete_task" class="btn btn-success btn-sm">Mark Completed</button>
-                                        </form>
-                                    <?php else: ?>
-                                        <span class="text-success">Completed</span>
-                                    <?php endif; ?>
-                                </td>
+                                <th>Task</th>
+                                <th>Assigned By</th>
+                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
-                        <?php endwhile; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php while ($task = $tasks->fetch_assoc()): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($task['description']) ?></td>
+                                    <td><?= htmlspecialchars($task['manager']) ?></td>
+                                    <td>
+                                        <span class="badge bg-<?= $task['status'] === 'Pending' ? 'warning' : 'success' ?>">
+                                            <?= htmlspecialchars($task['status']) ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <?php if ($task['status'] === 'Pending'): ?>
+                                            <form method="post" action="update_task_status.php" style="margin: 0;">
+                                                <input type="hidden" name="task_id" value="<?= htmlspecialchars($task['task_id']) ?>">
+                                                <button type="submit" name="complete_task" class="btn btn-success btn-sm">Mark Completed</button>
+                                            </form>
+                                        <?php else: ?>
+                                            <span class="text-success">Completed</span>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
     
         </div>
     </div>

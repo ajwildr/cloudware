@@ -148,17 +148,13 @@ $notifications = $notif_stmt->get_result();
 
         /* Cards */
         .stat-card {
-            background: white;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            height: 100%;
-            display: block; /* Ensures it wraps content */
-            width: fit-content; /* Wrap width based on content */
-            max-width: 100%; /* Prevents overflow */
-            margin-bottom: 1rem;
-        }
+             background: white;
+             border-radius: 1rem;
+             padding: 1.5rem;
+             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+             transition: transform 0.3s ease;
+             height: 100%;
+         }
 
         .stat-card:hover {
             transform: translateY(-5px);
@@ -171,21 +167,14 @@ $notifications = $notif_stmt->get_result();
 
         /* Quick Actions */
         .quick-action {
-            background: white;
-            border-radius: 1rem;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: none;
-            margin-bottom: 1rem;
-            min-height: 200px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: var(--dark-text);
-        }
+             background: white;
+             border-radius: 1rem;
+             padding: 2rem;
+             text-align: center;
+             transition: all 0.3s ease;
+             border: none;
+             margin-bottom: 1rem;
+             min-height: 200px;
 
         .quick-action:hover {
             transform: translateY(-5px);
@@ -200,16 +189,12 @@ $notifications = $notif_stmt->get_result();
 
         /* Activity Card */
         .activity-card {
-            background: white;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            display: block; /* Ensures it wraps content */
-            width: fit-content; /* Wrap width based on content */
-            max-width: 100%; /* Prevents overflow */
-            margin-bottom: 1rem;
-        }
+             background: white;
+             border-radius: 1rem;
+             padding: 1.5rem;
+             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+             margin-top: 2rem;
+         }
         
         /* Badge Styling */
         .badge {

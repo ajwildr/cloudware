@@ -90,7 +90,7 @@ $notifications = $notif_stmt->get_result();
             flex-direction: column;
         }
 
-        /* Wrapper to contain sidebar and content */
+         /* Wrapper to contain sidebar and content */
         .wrapper {
             display: flex;
             height: 100vh; /* Full viewport height */
@@ -148,13 +148,13 @@ $notifications = $notif_stmt->get_result();
 
         /* Cards */
         .stat-card {
-             background: white;
-             border-radius: 1rem;
-             padding: 1.5rem;
-             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-             transition: transform 0.3s ease;
-             height: 100%;
-         }
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
 
         .stat-card:hover {
             transform: translateY(-5px);
@@ -167,14 +167,21 @@ $notifications = $notif_stmt->get_result();
 
         /* Quick Actions */
         .quick-action {
-             background: white;
-             border-radius: 1rem;
-             padding: 2rem;
-             text-align: center;
-             transition: all 0.3s ease;
-             border: none;
-             margin-bottom: 1rem;
-             min-height: 200px;
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            margin-bottom: 0.5rem;
+            min-height: 150px; /* Reduced from 200px */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--dark-text);
+        }
 
         .quick-action:hover {
             transform: translateY(-5px);
@@ -183,27 +190,18 @@ $notifications = $notif_stmt->get_result();
         }
 
         .quick-action i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 2.25rem; /* Reduced from 3rem */
+            margin-bottom: 0.75rem;
         }
 
         /* Activity Card */
         .activity-card {
-             background: white;
-             border-radius: 1rem;
-             padding: 1.5rem;
-             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-             margin-top: 2rem;
-         }
-        
-        /* Badge Styling */
-        .badge {
-            padding: 0.4rem 0.8rem;
-            font-size: 0.85rem;
-            display: inline-block; /* Prevents stretching */
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
         }
-
-
 
         /* Mobile Responsive */
         @media (max-width: 768px) {

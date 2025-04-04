@@ -1,22 +1,22 @@
 <?php
 // db_connect.php
-function getDBConnection() {
-    $host = "warehouse1.mysql.database.azure.com";
-    $username = "ajai";
-    $password = "Mace@123";
-    $database = "cloudware";
+// function getDBConnection() {
+//     $host = "warehouse1.mysql.database.azure.com";
+//     $username = "ajai";
+//     $password = "Mace@123";
+//     $database = "cloudware";
     
-    $conn = mysqli_connect($host, $username, $password, $database);
+//     $conn = mysqli_connect($host, $username, $password, $database);
     
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
+//     if (!$conn) {
+//         die("Connection failed: " . mysqli_connect_error());
+//     }
     
-    return $conn;
-}
+//     return $conn;
+// }
 
 // Create a global connection object
-$conn = getDBConnection();
+// $conn = getDBConnection();
 ?>
 
 <?php
@@ -32,3 +32,26 @@ $conn = getDBConnection();
 // }
 ?>
 
+<?php
+function getDBConnection() {
+    $host = "workcollabb.mysql.database.azure.com";
+    $username = "balu"; // Always use full username
+    $password = "vidya@123";
+    $database = "warehouse";
+    $port = 3306;
+
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+    $conn = mysqli_init();
+
+    // No SSL setup needed if disabled
+    mysqli_real_connect($conn, $host, $username, $password, $database, $port);
+
+    return $conn;
+}
+
+$conn = getDBConnection();
+
+if ($conn) {
+    // echo "Connected successfully!";
+}
+?>

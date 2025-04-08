@@ -275,8 +275,8 @@ $recent_activities = $conn->query($query);
         </nav>
 
         <!-- Quick Actions Grid -->
-        <div class="container-md py-3">
-            <div class="row justify-content-center g-4">
+       <div class="row g-4 mb-4">
+                <div class="col-md-4">
                 <div class="col-sm-6 col-md-4">
                     <a href="admin_manage_products.php" class="quick-action shadow">
                         <i class="bi bi-box-seam text-primary"></i>
@@ -284,35 +284,35 @@ $recent_activities = $conn->query($query);
                         <p class="mb-0">View all the products in warehouse</p>
                     </a>
                 </div>
-                <div class="col-sm-6 col-md-4">
+                <div class="col-md-4">
                     <a href="manage_users.php" class="quick-action shadow">
                         <i class="bi bi-people text-success"></i>
                         <h5>Manage Users</h5>
                         <p class="mb-0">Edit user accounts and permissions</p>
                     </a>
                 </div>
-                <div class="col-sm-6 col-md-4">
+                <div class="col-md-4">
                     <a href="manage_suppliers.php" class="quick-action shadow">
                         <i class="bi bi-truck text-warning"></i>
                         <h5>Manage Suppliers</h5>
                         <p class="mb-0">Add or edit supplier information</p>
                     </a>
                 </div>
-                <div class="col-sm-6 col-md-4">
+                <div class="col-md-4">
                     <a href="manage_category.php" class="quick-action shadow active">
                         <i class="bi bi-tags text-light"></i>
                         <h5>Manage Categories</h5>
                         <p class="mb-0">Organize products with categories</p>
                     </a>
                 </div>
-                <div class="col-sm-6 col-md-4">
+                <div class="col-md-4">
                     <a href="admin_manager_scan.php" class="quick-action shadow">
                         <i class="bi bi-qr-code-scan text-info"></i>
                         <h5>Scan Products</h5>
                         <p class="mb-0">Quickly scan product barcodes</p>
                     </a>
                 </div>
-                <div class="col-sm-6 col-md-4">
+                <div class="col-md-4">
                     <a href="low_stock_notifications.php" class="quick-action shadow">
                         <i class="bi bi-bell-fill text-secondary"></i>
                         <h5>Stock Alerts</h5>

@@ -34,10 +34,10 @@
 
 <?php
 function getDBConnection() {
-    $host = "workcollabb.mysql.database.azure.com";
-    $username = "balu"; // Always use full username
-    $password = "vidya@123";
-    $database = "warehouse";
+    $host = "mace.mysql.database.azure.com";
+    $username = "mace"; // Always use full username
+    $password = "mca@1234";
+    $database = "cloudware";
     $port = 3306;
 
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);

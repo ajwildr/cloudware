@@ -10,12 +10,23 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Worker') {
 
 $worker_id = $_SESSION['user_id'];
 
-// Fetch racks assigned to the worker's category
+// First, get the worker's assigned category
+$categoryQuery = "SELECT assigned_category FROM users WHERE user_id = ?";
+$categoryStmt = $conn->prepare($categoryQuery);
+$categoryStmt->bind_param("i", $worker_id);
+$categoryStmt->execute();
+$categoryResult = $categoryStmt->get_result();
+$categoryRow = $categoryResult->fetch_assoc();
+$workerCategory = $categoryRow['assigned_category'];
+
+// Then fetch racks for products in that category
 $query = "SELECT r.rack_location, p.name AS product_name
           FROM rack r
-          LEFT JOIN products p ON r.product_id = p.product_id";
+          JOIN products p ON r.product_id = p.product_id
+          WHERE p.category = ?";
 
 $stmt = $conn->prepare($query);
+$stmt->bind_param("s", $workerCategory);
 $stmt->execute();
 $racks = $stmt->get_result();
 ?>

@@ -275,9 +275,9 @@ $recent_activities = $conn->query($query);
         </nav>
 
         <!-- Quick Actions Grid -->
-       <div class="row g-4 mb-4">
+       
+            <div class="row g-4 mb-4">
                 <div class="col-md-4">
-                <div class="col-sm-6 col-md-4">
                     <a href="admin_manage_products.php" class="quick-action shadow">
                         <i class="bi bi-box-seam text-primary"></i>
                         <h5>View Products</h5>
@@ -320,7 +320,7 @@ $recent_activities = $conn->query($query);
                     </a>
                 </div>
             </div>
-        </div>
+        
 
         <!-- Statistics -->
         <div class="row g-4 mb-4">

@@ -34,9 +34,9 @@
 
 <?php
 function getDBConnection() {
-    $host = "mace.mysql.database.azure.com";
-    $username = "mace"; // Always use full username
-    $password = "mca@1234";
+    $host = "fundraiser.mysql.database.azure.com";
+    $username = "sneha"; // Always use full username
+    $password = "sheetal@123";
     $database = "cloudware";
     $port = 3306;
 
